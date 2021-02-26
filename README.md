@@ -1,4 +1,4 @@
-<h1><p align="center" style="font-size:1.5rem;font-weight:normal"><img src="images/icon.png" alt="VS Code DarkLight" width="128" height=128" /><br /><strong>DarkLight</strong></p></h1>
+<h1><p align="center" style="font-size:1.5rem;font-weight:normal"><img src="images/icon.png" alt="Dark Light" width="128" height=128" /><br /><strong>Dark Light</strong></p></h1>
 
 [![GitHub build](https://github.com/IronGeek/vscode-darklight/workflows/Build/badge.svg)](https://github.com/IronGeek/vscode-darklight/actions/workflows/build.yml)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/IronGeek/vscode-darklight?logo=github)](https://github.com/IronGeek/vscode-darklight/releases/latest)
