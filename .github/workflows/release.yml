@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+jobs:
+  publish:
+    name: Publish
+    if: startsWith( github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name: Package
+      id: package
+      run: |
+        npm ci
+        mkdir -p vsix
+        ./node_modules/.bin/vsce package -o vsix
+        echo "##[set-output name=filename;]$(npm run filename --silent)"
+    - name: Verify
+      id: verify
+      if: success()
+      uses: andstor/file-existence-action@v1
+      with:
+        files: ${{ format('vsix/{0}', steps.package.outputs.filename) }}
+    - name: Upload
+      if: steps.verify.outputs.files_exists == 'true'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ${{ format('vsix/{0}', steps.package.outputs.filename) }}
+        asset_name: ${{ steps.package.outputs.filename }}
+        asset_content_type: binary/octet-stream
+    - name: Deploy to VS Marketplace
+      if: success()
+      run: ./node_modules/.bin/vsce publish $VSIX_FILE
+      env:
+        VSIX_FILE: ${{ format('vsix/{0}', steps.package.outputs.filename) }}
+        VSCE_PAT: ${{ secrets.VSCE_PAT }}
+    - name: Deploy to Open VSX
+      if: success()
+      run: ./node_modules/.bin/ovsx publish $VSIX_FILE
+      env:
+        VSIX_FILE: ${{ format('vsix/{0}', steps.package.outputs.filename) }}
+        OVSX_PAT: ${{ secrets.OVSX_PAT }}
