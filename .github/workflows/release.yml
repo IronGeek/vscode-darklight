@@ -41,7 +41,7 @@ jobs:
         asset_content_type: binary/octet-stream
     - name: Deploy to VS Marketplace
       if: success()
-      run: ./node_modules/.bin/vsce publish $VSIX_FILE
+      run: ./node_modules/.bin/vsce publish --packagePath $VSIX_FILE
       env:
         VSIX_FILE: ${{ format('vsix/{0}', steps.package.outputs.filename) }}
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
