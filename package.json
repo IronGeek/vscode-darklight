@@ -1,0 +1,80 @@
+{
+  "name": "vscode-darklight",
+  "displayName": "Dark Light",
+  "description": "Color mode switcher for Visual Studio Code",
+  "version": "0.1.0",
+  "publisher": "IronGeek",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IronGeek/vscode-darklight.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IronGeek/vscode-darklight/issues"
+  },
+  "homepage": "https://github.com/IronGeek/vscode-darklight/blob/master/README.md",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "color",
+    "mode",
+    "dark",
+    "light",
+    "switch",
+    "toggle"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#0078d7",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "darkLight.toggleColorMode",
+        "title": "Toggle VS Code color mode",
+        "category": "DarkLight",
+        "icon": "$(color-mode)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "darkLight.toggleColorMode",
+        "key": "ctrl+t ctrl+k",
+        "mac": "cmd+t cmd+k"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "lint": "eslint src --ext ts",
+    "prebuild": "npm run lint",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "filename": "echo $npm_package_name-$npm_package_version.vsix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.8",
+    "@types/vscode": "^1.50.0",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "eslint": "^7.11.0",
+    "husky": "^5.1.1",
+    "ovsx": "0.1.0-next.a9154dc",
+    "typescript": "^4.2.2",
+    "vsce": "^1.85.1"
+  }
+}
