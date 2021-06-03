@@ -59,22 +59,18 @@
     "prebuild": "npm run lint",
     "build": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "filename": "echo $npm_package_name-$npm_package_version.vsix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run build"
-    }
+    "filename": "echo $npm_package_name-$npm_package_version.vsix",
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@types/node": "^14.11.8",
+    "@types/node": "^15.12.3",
     "@types/vscode": "^1.50.0",
-    "@typescript-eslint/eslint-plugin": "^4.4.1",
-    "@typescript-eslint/parser": "^4.4.1",
-    "eslint": "^7.11.0",
-    "husky": "^5.1.1",
-    "ovsx": "0.1.0-next.a9154dc",
-    "typescript": "^4.2.2",
-    "vsce": "^1.85.1"
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "eslint": "^7.28.0",
+    "husky": "^6.0.0",
+    "ovsx": "^0.2.0",
+    "typescript": "^4.3.4",
+    "vsce": "^1.93.0"
   }
 }
