@@ -2,7 +2,7 @@
   "name": "vscode-darklight",
   "displayName": "Dark Light",
   "description": "Color mode switcher for Visual Studio Code",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "IronGeek",
   "license": "MIT",
   "repository": {
@@ -52,6 +52,11 @@
         "mac": "cmd+t cmd+k"
       }
     ]
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run build",
