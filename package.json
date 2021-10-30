@@ -2,7 +2,7 @@
   "name": "vscode-darklight",
   "displayName": "Dark Light",
   "description": "Color mode switcher for Visual Studio Code",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "IronGeek",
   "license": "MIT",
   "repository": {
@@ -37,6 +37,16 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "title": "Dark Light",
+      "properties": {
+        "darkLight.showNotification": {
+          "type": "boolean",
+          "default": true,
+          "description": "Controls whether to show notification when toggling VS Code color mode."
+        }
+      }
+    },
     "commands": [
       {
         "command": "darkLight.toggleColorMode",

@@ -5,6 +5,7 @@ import {
   WorkspaceConfiguration, ConfigurationTarget
 } from 'vscode';
 
+const SETTING_KEY_CONFIGURATION = 'darkLight';
 const SETTING_KEY_WORKBENCH = 'workbench';
 const SETTING_KEY_COLOR_THEME = 'colorTheme';
 const SETTING_KEY_LIGHT_THEME = 'preferredLightColorTheme';
@@ -55,11 +56,15 @@ class ColorMode {
   }
 
   private get configuration(): WorkspaceConfiguration {
+    return workspace.getConfiguration(SETTING_KEY_CONFIGURATION);
+  }
+
+  private get workbench(): WorkspaceConfiguration {
     return workspace.getConfiguration(SETTING_KEY_WORKBENCH);
   }
 
   get current(): WorkspaceConfiguration | undefined {
-    return this.configuration
+    return this.workbench
       .get(SETTING_KEY_COLOR_THEME);
   }
 
@@ -68,13 +73,18 @@ class ColorMode {
   }
 
   get light(): WorkspaceConfiguration | undefined {
-    return this.configuration
+    return this.workbench
       .get(SETTING_KEY_LIGHT_THEME);
   }
 
   get dark(): WorkspaceConfiguration | undefined {
-    return this.configuration
+    return this.workbench
       .get(SETTING_KEY_DARK_THEME);
+  }
+
+  get showNotification(): boolean {
+    return !!this.configuration
+      .get<boolean>('showNotification');
   }
 
   async toggle(): Promise<ColorMode> {
@@ -82,10 +92,10 @@ class ColorMode {
       const newTheme = (this.current === this.light) ? this.dark : this.light;
       this.logger?.log(`switching color mode: (${this.current}) ➝ (${newTheme})`);
 
-      await this.configuration
+      await this.workbench
         .update(SETTING_KEY_COLOR_THEME, newTheme, ConfigurationTarget.Global);
     } catch (err) {
-      this.logger?.log(err, this.configuration);
+      this.logger?.log(err, this.workbench);
     }
 
     return this;
@@ -98,15 +108,22 @@ export function activate(context: ExtensionContext) {
 
   const toggleColorMode = async (confirm?: boolean): Promise<void> => {
     const colorMode = await new ColorMode(logger).toggle();
-    if (confirm) {
+    if (confirm || !colorMode.showNotification) {
       return;
     }
 
-    if (await window.showInformationMessage(
+    const action = await window.showInformationMessage(
       `Switched to ${colorMode.mode} mode (${colorMode.current})`,
-      'Revert', 'Dismiss'
-    ) === 'Revert') {
-      toggleColorMode(true);
+      'Settings', 'Revert', 'Dismiss'
+    );
+
+    switch(action) {
+      case 'Revert':
+        await toggleColorMode(true);
+        break;
+      case 'Settings':
+        await commands.executeCommand('workbench.action.openSettings', `@ext:irongeek.vscode-darklight`);
+        break;
     }
   };
 
