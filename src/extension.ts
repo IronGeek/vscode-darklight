@@ -103,7 +103,7 @@ class ColorMode {
 }
 
 export function activate(context: ExtensionContext) {
-  const logger = new Logger(window.createOutputChannel('DarkLight'));
+  const logger = new Logger(window.createOutputChannel('Dark Light'));
   logger.log('activating extension');
 
   const toggleColorMode = async (confirm?: boolean): Promise<void> => {
