@@ -1,4 +1,6 @@
-out
-test
-node_modules
-vsix
+.vscode-test-web/
+dist/
+node_modules/
+out/
+test/
+vsix/

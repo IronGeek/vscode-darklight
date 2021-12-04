@@ -6,7 +6,9 @@
 		{
 			"type": "npm",
 			"script": "watch",
-			"problemMatcher": "$tsc-watch",
+			"problemMatcher": [
+				"$ts-webpack-watch"
+			],
 			"isBackground": true,
 			"presentation": {
 				"reveal": "never"
@@ -15,6 +17,13 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "npm",
+			"script": "test-web",
+			"problemMatcher": [],
+			"label": "npm: test-web",
+			"detail": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=."
 		}
 	]
 }

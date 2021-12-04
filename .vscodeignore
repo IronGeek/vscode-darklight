@@ -1,10 +1,13 @@
-.vscode/**
 .github/**
+.vscode/**
+.vscode-test-web/**
 src/**
 test/**
+vsix/**
 .editorconfig
+.eslintrc
 .gitignore
-**/tsconfig.json
-**/.eslintrc
+tsconfig.json
+webpack.config.json
 **/*.map
 **/*.ts

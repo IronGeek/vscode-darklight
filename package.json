@@ -35,7 +35,8 @@
   "activationEvents": [
     "*"
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/node.js",
+  "browser": "./dist/web.js",
   "contributes": {
     "configuration": {
       "title": "Dark Light",
@@ -70,23 +71,27 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run build",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint . --fix --ext .ts,.js",
     "depcheck": "npx --yes -- check-outdated --prefer-wanted --ignore-packages @types/vscode",
     "prebuild": "npm run depcheck && npm run lint",
-    "build": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
+    "build": "webpack --mode production --devtool hidden-source-map",
+    "watch": "webpack --watch",
+    "test-web": "vscode-test-web --browserType=chromium --extensionDevelopmentPath=.",
     "filename": "echo $npm_package_name-$npm_package_version.vsix",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@types/node": "^16.11.7",
+    "@types/node": "^16.11.11",
     "@types/vscode": "^1.50.0",
-    "@typescript-eslint/eslint-plugin": "^5.3.1",
-    "@typescript-eslint/parser": "^5.3.1",
-    "eslint": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "@vscode/test-web": "^0.0.15",
+    "eslint": "^8.4.0",
     "husky": "^7.0.4",
     "ovsx": "^0.2.1",
-    "typescript": "^4.4.4",
-    "vsce": "^2.3.0"
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.2",
+    "vsce": "^2.5.1",
+    "webpack-cli": "^4.9.1"
   }
 }
