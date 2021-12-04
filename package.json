@@ -33,7 +33,7 @@
     "theme": "dark"
   },
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "main": "./dist/node.js",
   "browser": "./dist/web.js",
