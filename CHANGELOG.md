@@ -2,9 +2,15 @@
 
 ## [0.1.3] ｜ Unreleased
 
+### Added
+
+↳ [`1839886a`](https://github.com/IronGeek/vscode-darklight/commit/1839886affec3fe72152356102df969276cc3846) support running as web extensions
+
 ### Changed
 
+↳ [`e94592bf`](https://github.com/IronGeek/vscode-darklight/commit/e94592bfaaa8a6bef832fb767ed27323c60c0f39) update activation events to `onStartupFinished`
 ↳ [`42453838`](https://github.com/IronGeek/vscode-darklight/commit/4245383844fdfbe286582b64b6938398ca274c97) rename output channel name to `Dark Light`
+
 
 ## [0.1.2] ｜ 2021-10-30
 
@@ -25,7 +31,7 @@
 
 ↳ [`97678cf`](https://github.com/IronGeek/vscode-darklight/commit/97678cf09b149ea50303b652f42f9e67028a111d) initial commit
 
-[0.1.3]: https://github.com/IronGeek/vscode-darklight/releases/tag/v0.1.2 "v0.1.3"
+[0.1.3]: https://github.com/IronGeek/vscode-darklight/releases/tag/v0.1.3 "v0.1.3"
 [0.1.2]: https://github.com/IronGeek/vscode-darklight/releases/tag/v0.1.2 "v0.1.2"
 [0.1.1]: https://github.com/IronGeek/vscode-darklight/releases/tag/v0.1.1 "v0.1.1"
 [0.1.0]: https://github.com/IronGeek/vscode-darklight/releases/tag/v0.1.0 "v0.1.0"
