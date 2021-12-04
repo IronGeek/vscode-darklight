@@ -18,6 +18,19 @@
 				"isDefault": true
 			}
 		},
+    {
+			"type": "npm",
+			"script": "test-watch",
+			"problemMatcher": "$tsc-watch",
+			"isBackground": true,
+			"presentation": {
+				"reveal": "never"
+			},
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		},
 		{
 			"type": "npm",
 			"script": "test-web",

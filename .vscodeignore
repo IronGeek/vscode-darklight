@@ -1,8 +1,10 @@
 .github/**
+.husky/**
 .vscode/**
+.vscode-test/**
 .vscode-test-web/**
 src/**
-test/**
+out/**
 vsix/**
 .editorconfig
 .eslintrc
