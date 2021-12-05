@@ -8,7 +8,7 @@
 
 ### Changed
 
-↳ [`e94592bf`](https://github.com/IronGeek/vscode-darklight/commit/e94592bfaaa8a6bef832fb767ed27323c60c0f39) update activation events to `onStartupFinished`
+↳ [`e94592bf`](https://github.com/IronGeek/vscode-darklight/commit/e94592bfaaa8a6bef832fb767ed27323c60c0f39) update activation events to `onStartupFinished`  
 ↳ [`42453838`](https://github.com/IronGeek/vscode-darklight/commit/4245383844fdfbe286582b64b6938398ca274c97) rename output channel name to `Dark Light`
 
 
