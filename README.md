@@ -27,4 +27,4 @@ Adds action to easily switch between dark and light color mode:
 
 ## License
 
-This project is licensed under the terms of [The MIT license](LICENSE).
+This project is licensed under the terms of [The MIT License](LICENSE).
