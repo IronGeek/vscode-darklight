@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 const baseConfig = {
   context: __dirname,
-  mode: 'none',
+  mode: process.env.NODE_ENV || 'production',
   module: {
     rules: [{
       test: /\.ts$/,
