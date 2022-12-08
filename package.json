@@ -71,7 +71,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run build",
-    "lint": "eslint . --fix --ext .ts,.js",
+    "lint": "eslint src --fix --ext .ts,.js",
     "depcheck": "npx --yes -- check-outdated --prefer-wanted",
     "prebuild": "npm run depcheck && npm run lint",
     "build": "webpack --mode production --devtool hidden-source-map",
