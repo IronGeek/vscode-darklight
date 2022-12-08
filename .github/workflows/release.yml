@@ -22,7 +22,7 @@ jobs:
       run: |
         npm ci
         mkdir -p vsix
-        ./node_modules/.bin/vsce package -o vsix
+        ./node_modules/.bin/vsce package --no-dependencies -o vsix
         echo "##[set-output name=filename;]$(npm run filename --silent)"
     - name: Verify
       id: verify
@@ -42,13 +42,13 @@ jobs:
         asset_content_type: binary/octet-stream
     - name: Deploy to VS Marketplace
       if: success()
-      run: ./node_modules/.bin/vsce publish --packagePath $VSIX_FILE
+      run: ./node_modules/.bin/vsce publish --no-dependencies --packagePath $VSIX_FILE
       env:
         VSIX_FILE: ${{ format('vsix/{0}', steps.package.outputs.filename) }}
         VSCE_PAT: ${{ secrets.VSCE_PAT }}
     - name: Deploy to Open VSX
       if: success()
-      run: ./node_modules/.bin/ovsx publish $VSIX_FILE
+      run: ./node_modules/.bin/ovsx publish --no-dependencies $VSIX_FILE
       env:
         VSIX_FILE: ${{ format('vsix/{0}', steps.package.outputs.filename) }}
         OVSX_PAT: ${{ secrets.OVSX_PAT }}
