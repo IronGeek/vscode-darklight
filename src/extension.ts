@@ -1,5 +1,6 @@
 import {
   commands, ConfigurationTarget, ExtensionContext, LogOutputChannel, StatusBarAlignment,
+  ThemeColor,
   window, workspace, WorkspaceConfiguration
 } from 'vscode';
 
@@ -15,6 +16,7 @@ const COMMAND_TOGGLE_THEME = 'darkLight.toggleColorMode';
 
 class ColorMode {
   #reverting: boolean = false;
+  #confirming: boolean = false;
 
   readonly #logger: LogOutputChannel;
 
@@ -32,6 +34,10 @@ class ColorMode {
 
   get reverting(): boolean {
     return this.#reverting;
+  }
+
+  get confirming(): boolean {
+    return this.#confirming;
   }
 
   get current(): string {
@@ -73,6 +79,8 @@ class ColorMode {
   }
 
   async toggle(): Promise<void> {
+    if (this.#confirming === true) { return; }
+
     const next = this.isDark ? this.light : this.dark;
     this.#logger.info(`${this.#reverting ? 'reverting' : 'switching'} color theme: '${this.current}' ➝ '${next}'`);
 
@@ -86,10 +94,12 @@ class ColorMode {
   async confirm(): Promise<void> {
     if (!this.showNotification) { return; }
 
+    this.#confirming = true;
     const action = await window.showInformationMessage(
       `Switched color mode to ${this.current}`,
       'Settings', 'Revert', 'Dismiss'
     );
+    this.#confirming = false;
 
     switch(action) {
       case 'Revert':
@@ -99,6 +109,8 @@ class ColorMode {
         await commands.executeCommand('workbench.action.openSettings', `@ext:irongeek.vscode-darklight`);
         break;
     }
+
+
   }
 }
 
@@ -111,21 +123,26 @@ export function activate(context: ExtensionContext) {
   const colorMode = new ColorMode(logger);
   logger.info(`current color theme: '${(colorMode.current)}'`);
 
+  const themeStatusBarTooltip = `Toggle VS Code color mode`;
+  const themeStatusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 99);
+  themeStatusBarItem.command = COMMAND_TOGGLE_THEME;
+  themeStatusBarItem.text = '$(color-mode)';
+  themeStatusBarItem.tooltip = themeStatusBarTooltip;
+  themeStatusBarItem.show();
+
   const switchThemeCommand = commands.registerCommand(COMMAND_TOGGLE_THEME, () => colorMode.toggle());
   const configurationChanged = workspace.onDidChangeConfiguration(async (e) => {
     if (e.affectsConfiguration(`${SETTING_KEY_WORKBENCH}.${SETTING_KEY_COLOR_THEME}`)) {
       logger.info(`current color theme: '${(colorMode.current)}'`);
       if (!colorMode.reverting) {
+        themeStatusBarItem.text = '$(debug-pause)';
+        themeStatusBarItem.tooltip = `${themeStatusBarTooltip} (paused)`;
         await colorMode.confirm();
+        themeStatusBarItem.text = '$(color-mode)';
+        themeStatusBarItem.tooltip = themeStatusBarTooltip;
       }
     }
   });
-
-  const themeStatusBarItem = window.createStatusBarItem(StatusBarAlignment.Right, 99);
-  themeStatusBarItem.command = COMMAND_TOGGLE_THEME;
-  themeStatusBarItem.text = '$(color-mode)';
-  themeStatusBarItem.tooltip = 'Toggle VS Code color mode';
-  themeStatusBarItem.show();
 
   context.subscriptions.push(
     logger,
